@@ -7,6 +7,11 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+  <script>
+    if (sessionStorage.getItem('loggedIn') !== 'true') {
+      window.location.href = 'index.html';
+    }
+  </script>
   <header class="profile-header">
     <div class="cover-photo">
       <img id="edit-cover-preview" src="" alt="Cover Photo Preview" style="display: none;" />
@@ -32,7 +37,10 @@
           <h1>Edit Profile</h1>
           <p>Change the profile photo, cover image, about section, details, and services.</p>
         </div>
-        <a class="btn btn-secondary" href="index.html">View Profile</a>
+        <div>
+          <a class="btn btn-secondary" href="index.html">View Profile</a>
+          <button class="btn btn-secondary" id="logout-btn" type="button">Logout</button>
+        </div>
       </div>
       <form id="profile-form">
         <div class="form-grid">
@@ -155,7 +163,7 @@
 
     form.addEventListener('submit', event => {
       event.preventDefault();
-      localStorage.setItem('profileName', nameInput.value.trim() || 'Mr Swapan Kumar Paul');
+      localStorage.setItem('profileName', nameInput.value.trim() || 'Priya Sharma');
       localStorage.setItem('profileTitle', titleInput.value.trim() || 'Financial Advisor · Wealth planner · Investment strategist');
       localStorage.setItem('aboutText', aboutInput.value.trim() || 'Financial advisor helping professionals and business owners build long-term wealth with personalized investment planning, retirement guidance, and tax-smart strategies.');
       localStorage.setItem('detailLocation', locationInput.value.trim() || 'Mumbai, India');
@@ -163,6 +171,11 @@
       localStorage.setItem('detailWebsite', websiteInput.value.trim() || 'www.priyafinance.com');
       localStorage.setItem('servicesList', servicesInput.value.trim() || 'Investment Planning, Retirement, Tax Strategy, Portfolio Review, Wealth Growth');
       alert('Profile saved. Open the profile page to see the updates.');
+    });
+
+    document.getElementById('logout-btn').addEventListener('click', () => {
+      sessionStorage.removeItem('loggedIn');
+      window.location.href = 'index.html';
     });
 
     loadSavedProfile();
