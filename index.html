@@ -7,6 +7,13 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+  <header class="site-nav">
+    <div class="container nav-inner">
+      <a class="nav-brand" href="index.html">Profile</a>
+      <button class="btn btn-secondary login-tab" id="open-login">Login</button>
+    </div>
+  </header>
+
   <header class="profile-header">
     <div class="cover-photo">
       <img id="cover-image" src="" alt="Cover Photo" style="display: none;" />
@@ -18,11 +25,11 @@
           <img class="avatar-image" src="https://via.placeholder.com/120?text=Your+Photo" alt="Profile Photo" />
         </div>
         <div class="profile-meta">
-          <h1 id="profile-name">Mr. Swapan Kumar Paul</h1>
+          <h1 id="profile-name">Priya Sharma</h1>
           <p id="profile-title">Financial Advisor · Wealth planner · Investment strategist</p>
           <div class="profile-actions">
             <button class="btn btn-primary">Connect</button>
-            <button class="btn btn-secondary">Book Consultation</button>
+            <button class="btn btn-secondary" id="whatsapp-btn">Book Consultation</button>
           </div>
         </div>
       </div>
@@ -124,6 +131,25 @@
     </div>
   </div>
 
+  <!-- Login Modal -->
+  <div id="login-modal" class="modal login-modal">
+    <div class="modal-content login-modal-content">
+      <span class="modal-close">&times;</span>
+      <h2>Login to Edit</h2>
+      <form id="login-form">
+        <div class="field">
+          <label for="login-user">User ID</label>
+          <input type="text" id="login-user" placeholder="Enter user id" required />
+        </div>
+        <div class="field">
+          <label for="login-pass">Password</label>
+          <input type="password" id="login-pass" placeholder="Enter password" required />
+        </div>
+        <button type="submit" class="btn btn-primary">Login</button>
+      </form>
+    </div>
+  </div>
+
   <script>
     document.getElementById('footer-year').textContent = new Date().getFullYear();
 
@@ -220,8 +246,40 @@
       }
     });
 
+    // Login modal
+    const loginButton = document.getElementById('open-login');
+    const loginModal = document.getElementById('login-modal');
+    const loginModalClose = loginModal.querySelector('.modal-close');
+    const loginForm = document.getElementById('login-form');
+
+    loginButton.addEventListener('click', function() {
+      loginModal.style.display = 'flex';
+    });
+
+    loginModalClose.addEventListener('click', function() {
+      loginModal.style.display = 'none';
+    });
+
+    loginModal.addEventListener('click', function(e) {
+      if (e.target === loginModal) {
+        loginModal.style.display = 'none';
+      }
+    });
+
+    loginForm.addEventListener('submit', function(event) {
+      event.preventDefault();
+      const user = document.getElementById('login-user').value.trim();
+      const password = document.getElementById('login-pass').value;
+      if (user === '9830858953' && password === 'Swapan@2026') {
+        sessionStorage.setItem('loggedIn', 'true');
+        window.location.href = 'edit.html';
+      } else {
+        alert('Wrong credential');
+      }
+    });
+
     // Book Consultation - WhatsApp redirect
-    document.querySelector('.btn-secondary').addEventListener('click', function() {
+    document.getElementById('whatsapp-btn').addEventListener('click', function() {
       window.location.href = 'https://wa.me/919876543210';
     });
   </script>
