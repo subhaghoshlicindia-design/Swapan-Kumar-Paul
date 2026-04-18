@@ -1,1 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Social Profile</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-nav">
+    <div class="container nav-inner">
+      <a class="nav-brand" href="index.html">Profile</a>
+      <button class="btn btn-secondary login-tab" id="open-login">Login</button>
+    </div>
+  </header>
 
+  <header class="profile-header">
+    <div class="cover-photo">
+      <img id="cover-image" src="" alt="Cover Photo" style="display: none;" />
+      <div class="cover-label" id="cover-label">Cover photo area</div>
+    </div>
+    <div class="profile-bar container">
+      <div class="profile-main">
+        <div class="avatar-wrapper">
+          <img class="avatar-image" src="https://via.placeholder.com/120?text=Your+Photo" alt="Profile Photo" />
+        </div>
+        <div class="profile-meta">
+          <h1 id="profile-name">Priya Sharma</h1>
+          <p id="profile-title">Financial Advisor · Wealth planner · Investment strategist</p>
+          <div class="profile-actions">
+            <button class="btn btn-primary">Connect</button>
+            <button class="btn btn-secondary" id="whatsapp-btn">Book Consultation</button>
+          </div>
+        </div>
+      </div>
+      <div class="profile-stats">
+        <div>
+          <strong>1500</strong>
+          <span>Clients</span>
+        </div>
+        <div>
+          <strong>1Cr</strong>
+          <span>Assets</span>
+        </div>
+        <div>
+          <strong>6</strong>
+          <span>Years</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container layout">
+    <section class="sidebar">
+      <div class="card bio-card">
+        <h2>About</h2>
+        <p id="about-text">Financial advisor helping professionals and business owners build long-term wealth with personalized investment planning, retirement guidance, and tax-smart strategies.</p>
+      </div>
+      <div class="card details-card">
+        <h2>Details</h2>
+        <ul>
+          <li><strong>Location:</strong> <span id="detail-location">Mumbai, India</span></li>
+          <li><strong>Work:</strong> <span id="detail-work">Certified Financial Planner</span></li>
+          <li><strong>Website:</strong> <span id="detail-website">www.priyafinance.com</span></li>
+        </ul>
+      </div>
+      <div class="card interests-card">
+        <h2>Services</h2>
+        <div class="tags" id="services-tags">
+          <span>Investment Planning</span>
+          <span>Retirement</span>
+          <span>Tax Strategy</span>
+          <span>Portfolio Review</span>
+          <span>Wealth Growth</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="feed">
+      <div class="card post-card featured-post">
+        <div class="post-header">
+          <div>
+            <h3>Client Success Story</h3>
+            <time datetime="2026-04-17">April 17, 2026</time>
+          </div>
+          <span class="post-badge">Pinned</span>
+        </div>
+        <p>Helped a young family build a balanced investment portfolio, reduce their tax burden, and set a clear path toward early retirement.</p>
+      </div>
+
+      <div class="card post-card">
+        <div class="post-header">
+          <h3>Top 5 Investing Tips</h3>
+          <time datetime="2026-04-10">Apr 10</time>
+        </div>
+        <p>Diversify across asset classes, keep investment costs low, and review your plan at least twice a year to stay aligned with your goals.</p>
+      </div>
+
+      <div class="card post-card">
+        <div class="post-header">
+          <h3>Why Emergency Funds Matter</h3>
+          <time datetime="2026-03-28">Mar 28</time>
+        </div>
+        <p>An emergency fund protects your financial plan from unexpected expenses and keeps you from selling investments during market dips.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>© <span id="footer-year">2026</span> Priya Sharma. Financial advisor profile.</p>
+    </div>
+  </footer>
+
+  <!-- Image Modal -->
+  <div id="image-modal" class="modal">
+    <span class="modal-close">&times;</span>
+    <img class="modal-content" id="modal-image" />
+  </div>
+
+  <!-- Contact Modal -->
+  <div id="contact-modal" class="modal">
+    <div class="modal-content contact-modal-content">
+      <span class="modal-close">&times;</span>
+      <h2>Contact Details</h2>
+      <div class="contact-info">
+        <p><strong>Email:</strong> priya@finance.com</p>
+        <p><strong>Mobile:</strong> +91 9876543210</p>
+        <p><strong>WhatsApp:</strong> +91 9876543210</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Login Modal -->
+  <div id="login-modal" class="modal login-modal">
+    <div class="modal-content login-modal-content">
+      <span class="modal-close">&times;</span>
+      <h2>Login to Edit</h2>
+      <form id="login-form">
+        <div class="field">
+          <label for="login-user">User ID</label>
+          <input type="text" id="login-user" placeholder="Enter user id" required />
+        </div>
+        <div class="field">
+          <label for="login-pass">Password</label>
+          <input type="password" id="login-pass" placeholder="Enter password" required />
+        </div>
+        <button type="submit" class="btn btn-primary">Login</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('footer-year').textContent = new Date().getFullYear();
+
+    function loadSavedProfile() {
+      // Load images from localStorage
+      const profilePhoto = localStorage.getItem('profilePhoto');
+      const coverPhoto = localStorage.getItem('coverPhoto');
+      const profileName = localStorage.getItem('profileName');
+      const profileTitle = localStorage.getItem('profileTitle');
+      const aboutText = localStorage.getItem('aboutText');
+      const detailLocation = localStorage.getItem('detailLocation');
+      const detailWork = localStorage.getItem('detailWork');
+      const detailWebsite = localStorage.getItem('detailWebsite');
+      const servicesList = localStorage.getItem('servicesList');
+
+      if (profilePhoto) {
+        document.querySelector('.avatar-image').src = profilePhoto;
+      }
+      if (coverPhoto) {
+        document.getElementById('cover-image').src = coverPhoto;
+        document.getElementById('cover-image').style.display = 'block';
+        document.getElementById('cover-label').style.display = 'none';
+      }
+      if (profileName) {
+        document.getElementById('profile-name').textContent = profileName;
+      }
+      if (profileTitle) {
+        document.getElementById('profile-title').textContent = profileTitle;
+      }
+      if (aboutText) {
+        document.getElementById('about-text').textContent = aboutText;
+      }
+      if (detailLocation) {
+        document.getElementById('detail-location').textContent = detailLocation;
+      }
+      if (detailWork) {
+        document.getElementById('detail-work').textContent = detailWork;
+      }
+      if (detailWebsite) {
+        document.getElementById('detail-website').textContent = detailWebsite;
+      }
+      if (servicesList) {
+        const tags = document.getElementById('services-tags');
+        tags.innerHTML = '';
+        servicesList.split(',').map(tag => tag.trim()).filter(Boolean).forEach(label => {
+          const span = document.createElement('span');
+          span.textContent = label;
+          tags.appendChild(span);
+        });
+      }
+    }
+
+    loadSavedProfile();
+    window.addEventListener('pageshow', loadSavedProfile);
+    window.addEventListener('storage', loadSavedProfile);
+
+    // Modal functionality
+    const modal = document.getElementById('image-modal');
+    const modalImg = document.getElementById('modal-image');
+    const modalClose = document.querySelector('.modal-close');
+
+    // Profile photo click
+    document.querySelector('.avatar-image').addEventListener('click', function() {
+      modal.style.display = 'flex';
+      modalImg.src = this.src;
+    });
+
+    // Cover photo click
+    document.getElementById('cover-image').addEventListener('click', function() {
+      modal.style.display = 'flex';
+      modalImg.src = this.src;
+    });
+
+    // Close modal
+    modalClose.addEventListener('click', function() {
+      modal.style.display = 'none';
+    });
+
+    modal.addEventListener('click', function(e) {
+      if (e.target === modal) {
+        modal.style.display = 'none';
+      }
+    });
+
+    // Contact modal
+    const contactModal = document.getElementById('contact-modal');
+    const contactModalClose = contactModal.querySelector('.modal-close');
+
+    document.querySelector('.btn-primary').addEventListener('click', function() {
+      contactModal.style.display = 'flex';
+    });
+
+    contactModalClose.addEventListener('click', function() {
+      contactModal.style.display = 'none';
+    });
+
+    contactModal.addEventListener('click', function(e) {
+      if (e.target === contactModal) {
+        contactModal.style.display = 'none';
+      }
+    });
+
+    // Login modal
+    const loginButton = document.getElementById('open-login');
+    const loginModal = document.getElementById('login-modal');
+    const loginModalClose = loginModal.querySelector('.modal-close');
+    const loginForm = document.getElementById('login-form');
+
+    loginButton.addEventListener('click', function() {
+      loginModal.style.display = 'flex';
+    });
+
+    loginModalClose.addEventListener('click', function() {
+      loginModal.style.display = 'none';
+    });
+
+    loginModal.addEventListener('click', function(e) {
+      if (e.target === loginModal) {
+        loginModal.style.display = 'none';
+      }
+    });
+
+    loginForm.addEventListener('submit', function(event) {
+      event.preventDefault();
+      const user = document.getElementById('login-user').value.trim();
+      const password = document.getElementById('login-pass').value;
+      if (user === '9830858953' && password === 'Swapan@2026') {
+        sessionStorage.setItem('loggedIn', 'true');
+        window.location.href = 'edit.html';
+      } else {
+        alert('Wrong credential');
+      }
+    });
+
+    // Book Consultation - WhatsApp redirect
+    document.getElementById('whatsapp-btn').addEventListener('click', function() {
+      window.location.href = 'https://wa.me/919876543210';
+    });
+  </script>
+</body>
+</html>
